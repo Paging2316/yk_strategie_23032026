@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yellow Kangaroo — DACH Launch Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800;9..144,900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F4F0E8;--white:#FAFAF7;--dark:#111111;--yellow:#F5C800;
+  --yellow-light:#FFF8D6;--yellow-muted:rgba(245,200,0,0.15);
+  --grey:#666666;--grey-light:#E8E4DC;--grey-ul:#F0EDE6;
+  --green:#2D6A4F;--green-light:#D8F3DC;
+  --red:#D62828;--red-light:#FFE0E0;
+  --blue:#1D3557;--blue-light:#D6E8F0;
+  --radius:14px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:700}
+
+/* --- HEADER --- */
+.header{position:sticky;top:0;z-index:100;background:var(--dark);color:#fff;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 24px rgba(0,0,0,.18)}
+.header-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:34px;height:34px;border-radius:var(--radius-sm);background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:17px;color:var(--dark)}
+.logo-text h1{font-size:17px;letter-spacing:-.5px}
+.logo-text span{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1.5px}
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;padding:4px 8px}
+
+/* --- LAYOUT --- */
+.layout{display:flex;min-height:calc(100vh - 62px)}
+
+/* --- SIDEBAR --- */
+.sidebar{width:224px;min-width:224px;background:var(--white);border-right:1px solid var(--grey-light);padding:14px 0;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;transition:transform .3s}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--grey-light);border-radius:4px}
+.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:10px 20px;border:none;background:transparent;color:var(--grey);font-weight:500;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:left;border-right:3px solid transparent;transition:all .15s}
+.nav-btn:hover{background:var(--grey-ul);color:var(--dark)}
+.nav-btn.active{background:var(--yellow-light);color:var(--dark);font-weight:700;border-right-color:var(--yellow)}
+.nav-icon{font-size:13px;opacity:.5;width:18px;text-align:center}
+.nav-btn.active .nav-icon{opacity:1}
+
+/* --- MAIN --- */
+.main{flex:1;padding:36px 44px;max-width:980px;min-width:0}
+
+/* --- SECTIONS --- */
+.section{display:none;animation:fadeUp .45s ease}
+.section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* --- COMPONENTS --- */
+.section-title{margin-bottom:30px}
+.section-title h2{font-size:30px;line-height:1.15}
+.section-title p{font-size:14.5px;color:var(--grey);margin-top:8px;max-width:680px}
+.section-title .bar{width:56px;height:3px;background:var(--yellow);border-radius:2px;margin-top:16px}
+
+.card{background:var(--white);border:1px solid var(--grey-light);border-radius:var(--radius);padding:22px;margin-bottom:14px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.card-accent-left{border-left:4px solid var(--yellow)}
+
+.stat-grid{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.stat-card{background:var(--white);border:1px solid var(--grey-light);border-radius:var(--radius);padding:22px 18px;flex:1 1 190px;min-width:170px;position:relative;overflow:hidden}
+.stat-card .accent{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:var(--radius) 0 0 var(--radius)}
+.stat-label{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+.stat-value{font-family:'Fraunces',serif;font-size:26px;font-weight:800;line-height:1.1}
+.stat-sub{font-size:12.5px;color:var(--grey);margin-top:5px}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.4px}
+.badge-green{color:var(--green);background:var(--green-light)}
+.badge-blue{color:var(--blue);background:var(--blue-light)}
+.badge-red{color:var(--red);background:var(--red-light)}
+.badge-dark{color:#fff;background:var(--dark)}
+.badge-yellow{color:var(--dark);background:var(--yellow-light)}
+.badge-grey{color:var(--dark);background:var(--grey-light)}
+.badge-amber{color:#92400E;background:#FEF3C7}
+
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--grey-light);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:var(--yellow-light)}
+th{padding:11px 15px;text-align:left;font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--dark);border-bottom:2px solid var(--grey-light)}
+td{padding:9px 15px;border-bottom:1px solid var(--grey-light)}
+tbody tr:nth-child(even){background:var(--grey-ul)}
+tbody tr:nth-child(odd){background:var(--white)}
+.tbl-blue thead tr{background:var(--blue-light)}
+.tbl-green thead tr{background:var(--green-light)}
+
+.progress-row{margin-bottom:14px}
+.progress-header{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.progress-header .lbl{font-weight:500}
+.progress-header .val{color:var(--grey)}
+.progress-track{height:8px;background:var(--grey-light);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
+
+.callout{background:var(--yellow-light);border:2px solid var(--yellow);border-radius:var(--radius);padding:18px 22px;margin-top:18px}
+.callout-title{font-weight:700;margin-bottom:6px}
+.callout p,.callout div{font-size:14px;line-height:1.65}
+
+.tab-bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.tab-btn{padding:9px 20px;border-radius:24px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;transition:all .2s;background:var(--grey-light);color:var(--dark)}
+.tab-btn.active{background:var(--dark);color:#fff}
+
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+
+.item-row{display:flex;align-items:flex-start;gap:14px;padding:8px 0 8px 0}
+.item-num{font-family:'Fraunces',serif;font-size:26px;font-weight:800;color:var(--yellow);min-width:38px}
+.arrow{color:var(--yellow);margin-right:6px;font-weight:700}
+.arrow-green{color:var(--green)}
+.arrow-red{color:var(--red)}
+
+.rank-card{display:flex;gap:18px;align-items:flex-start;margin-bottom:14px}
+.rank-num{font-family:'Fraunces',serif;font-size:46px;font-weight:900;line-height:1;min-width:48px}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.metric-box{background:var(--grey-ul);border-radius:var(--radius);padding:14px;text-align:center}
+.metric-box .icon{font-size:22px;margin-bottom:3px}
+.metric-box .val{font-family:'Fraunces',serif;font-size:17px;font-weight:700}
+.metric-box .lbl{font-size:10.5px;color:var(--grey);margin-top:3px}
+
+.mono{font-family:'Courier New',monospace;background:var(--grey-ul);border-radius:var(--radius-sm);padding:10px 14px;font-size:12.5px;margin:8px 0 14px}
+
+.priority-row{display:flex;align-items:center;gap:14px;padding:13px 18px}
+.priority-num{font-family:'Fraunces',serif;font-size:19px;font-weight:800;min-width:30px;text-align:center}
+.priority-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+
+/* --- SWOT GRID --- */
+.swot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:18px}
+.swot-box{border-radius:var(--radius);padding:18px}
+.swot-box .title{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.swot-item{font-size:13px;padding-left:18px;position:relative;margin-bottom:7px;line-height:1.5}
+.swot-item::before{content:'→';position:absolute;left:0;font-weight:700}
+
+/* --- MOBILE --- */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:90}
+@media(max-width:800px){
+  .sidebar{position:fixed;left:0;top:62px;z-index:95;transform:translateX(-100%);box-shadow:4px 0 24px rgba(0,0,0,.1)}
+  .sidebar.open{transform:translateX(0)}
+  .hamburger{display:block}
+  .main{padding:22px 16px}
+  .overlay.show{display:block}
+  .stat-grid{gap:10px}
+  .stat-card{padding:16px 14px}
+  .stat-value{font-size:22px}
+  .section-title h2{font-size:24px}
+  .rank-num{font-size:34px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">
+    <div class="logo-mark">YK</div>
+    <div class="logo-text">
+      <h1>Yellow Kangaroo</h1>
+      <span>DACH Launch Playbook</span>
+    </div>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+</header>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar"></nav>
+
+<!-- MAIN -->
+<main class="main" id="main"></main>
+</div>
+
+<script>
+// ─── DATA ───
+const NAV = [
+  {id:'overview',label:'Overview',icon:'◉'},
+  {id:'keywords',label:'Keywords',icon:'◎'},
+  {id:'competitors',label:'Wettbewerb',icon:'◈'},
+  {id:'ads',label:'Ad Creative',icon:'◇'},
+  {id:'meta',label:'Meta Ads',icon:'◆'},
+  {id:'google',label:'Google Ads',icon:'◊'},
+  {id:'channels',label:'Channels',icon:'○'},
+  {id:'marketplace',label:'Marktplätze',icon:'□'},
+  {id:'pricing',label:'Pricing',icon:'△'},
+  {id:'shopify',label:'Shopify',icon:'▽'},
+  {id:'communities',label:'Communities',icon:'☆'},
+  {id:'lowbudget',label:'Growth Hacks',icon:'★'},
+  {id:'timeline',label:'90 Tage Plan',icon:'▷'},
+  {id:'priorities',label:'TOP 15',icon:'⬤'},
+];
+let activeSection = 'overview';
+let activeTab = 'hooks';
+
+// ─── NAVIGATION ───
+function buildNav(){
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML = NAV.map(n=>`<button class="nav-btn${n.id===activeSection?' active':''}" data-id="${n.id}"><span class="nav-icon">${n.icon}</span>${n.label}</button>`).join('');
+  sb.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>{
+    activeSection=b.dataset.id;buildNav();renderSection();closeMobile();
+  }));
+}
+
+function toggleMenu(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeMobile(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ─── HELPERS ───
+function sTitle(title,sub){return `<div class="section-title"><h2>${title}</h2>${sub?`<p>${sub}</p>`:''}<div class="bar"></div></div>`}
+function badge(text,cls='badge-green'){return `<span class="badge ${cls}">${text}</span>`}
+function stat(label,value,sub,color='var(--yellow)'){return `<div class="stat-card"><div class="accent" style="background:${color}"></div><div class="stat-label">${label}</div><div class="stat-value">${value}</div>${sub?`<div class="stat-sub">${sub}</div>`:''}</div>`}
+function tbl(headers,rows,cls=''){return `<div class="tbl-wrap ${cls}"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`}
+function progress(label,val,color='var(--yellow)'){return `<div class="progress-row"><div class="progress-header"><span class="lbl">${label}</span><span class="val">${val}%</span></div><div class="progress-track"><div class="progress-fill" style="width:${val}%;background:${color}"></div></div></div>`}
+function callout(title,body){return `<div class="callout"><div class="callout-title">${title}</div><div>${body}</div></div>`}
+function card(content,extra=''){return `<div class="card ${extra}">${content}</div>`}
+function arrow(text,cls='arrow'){return `<span class="${cls}">→</span> ${text}`}
+
+// ─── SECTIONS ───
+function renderSection(){
+  const m=document.getElementById('main');
+  m.innerHTML=`<div class="section active">${SECTIONS[activeSection]()}</div>`;
+  observeReveals();
+}
+
+const SECTIONS = {
+overview(){return sTitle('Market Overview','Yellow Kangaroo betritt einen jungen, schnell wachsenden Markt — mit dem einzigen Clean-Label-Energie-Mundspray in DACH.')+
+`<div class="stat-grid">
+${stat('Marktführer','Mouth Energy','~10.000 Retail-Doors via DHDL')}
+${stat('Kategorie-Suchen/Mo','2.500–5.000','"Koffein Mundspray" DACH','var(--green)')}
+${stat('Preisaufschlag YK','2,5×','vs. Mouth Energy (€9,95)','var(--red)')}
+${stat('Clean-Label Leader','0','Wettbewerber im Natürlich-Segment','var(--blue)')}
+</div>`+
+card(`<h3 style="font-size:19px;margin-bottom:16px">Strategische Ausgangslage</h3>
+<div class="swot-grid">
+<div class="swot-box" style="background:var(--green-light)">
+  <div class="title" style="color:var(--green)">Stärke</div>
+  <div class="swot-item" style="--c:var(--green)">Einziges natürliches Spray (Guarana, Ginseng, B-Vitamine)</div>
+  <div class="swot-item">AT + CH geografischer Whitespace</div>
+  <div class="swot-item">Premium-Positionierung "ruhige Kontrolle"</div>
+</div>
+<div class="swot-box" style="background:var(--red-light)">
+  <div class="title" style="color:var(--red)">Schwäche</div>
+  <div class="swot-item">Höchster Einzelpreis der Kategorie (€24,50)</div>
+  <div class="swot-item">Keine Retail-Präsenz</div>
+  <div class="swot-item">Kein Social Proof / Reviews</div>
+</div>
+<div class="swot-box" style="background:var(--blue-light)">
+  <div class="title" style="color:var(--blue)">Chance</div>
+  <div class="swot-item">Mouth Energy Geschmacks-Schwäche (bitter/chemisch)</div>
+  <div class="swot-item">Künstliche Inhaltsstoffe als Angriffsfläche</div>
+  <div class="swot-item">"Natürlich"-Cluster bei Keywords unbesetzt</div>
+</div>
+</div>`)},
+
+keywords(){return sTitle('Keyword-Strategie','20 High-Intent Keywords + 10 Money Keywords für sofortigen Einsatz in Google Ads & SEO.')+
+`<div class="reveal"><h3 style="margin-bottom:14px">Top 10 Kategorie-Keywords</h3>`+
+tbl(['Keyword','Est. Suchen/Mo','Wettbewerb','Intent'],[
+['Mouth Energy (Brand)','5.000–15.000','Hoch','Conquest'],
+['Kaffee Alternative','8.000–15.000','Hoch','Info/Kommerziell'],
+['Energy Spray','3.000–6.000','Hoch','Gemischt'],
+['Koffein Mundspray','2.500–5.000','Mittel-Hoch','Transaktional'],
+['Energy Mundspray','1.500–3.000','Mittel','Transaktional'],
+['Koffein Alternative','1.000–3.000','Mittel','Kommerziell'],
+['Wachmacher natürlich','500–1.500','Niedrig','Kommerziell'],
+['Müdigkeit bekämpfen ohne Kaffee','1.000–3.000','Niedrig','Top-of-Funnel'],
+['Mittagstief überwinden','500–1.000','Niedrig','ToF'],
+['Guarana Spray','100–300','Sehr niedrig','Nische'],
+])+`</div>`+
+`<div class="reveal"><h3 style="margin:28px 0 14px">10 Money Keywords ${badge('Google Ads Ready','badge-yellow')}</h3>`+
+tbl(['Money Keyword','Est. CPC','Kaufintent'],[
+['Koffein Mundspray kaufen','€0,80–1,50','⬤⬤⬤ Sehr hoch'],
+['Energy Mundspray bestellen','€0,70–1,30','⬤⬤⬤ Sehr hoch'],
+['Mouth Energy Alternative','€0,60–1,20','⬤⬤⬤ Conquest'],
+['bestes Energy Spray','€0,70–1,40','⬤⬤⬤ Sehr hoch'],
+['natürliches Koffein Spray','€0,40–0,80','⬤⬤⬤ Zero Competition'],
+['Energy Spray ohne Zucker','€0,50–1,00','⬤⬤⬤ Sehr hoch'],
+['Koffein Mundspray Test','€0,50–1,00','⬤⬤ Research→Purchase'],
+['Koffein Mundspray Erfahrungen','€0,40–0,90','⬤⬤ Research→Purchase'],
+['Energie Mundspray online kaufen','€0,60–1,20','⬤⬤⬤ Sehr hoch'],
+['Guarana Mundspray kaufen','€0,30–0,70','⬤⬤⬤ Ultra-Nische'],
+],'tbl-green')+`</div>`+
+callout('💡 Größte Keyword-Chance','Der <strong>"natürlich"-Cluster</strong> (natürliches Koffein Mundspray, Energy Spray natürlich, Guarana Ginseng Spray) hat <strong>praktisch null Wettbewerb</strong> in Paid Search und mappt direkt auf Yellow Kangaroos USP. Sofort besetzen.')},
+
+competitors(){return sTitle('Wettbewerbsanalyse','Pricing, Vertrieb und Schwachstellen der Top-Wettbewerber.')+
+`<div class="reveal">`+
+tbl(['Brand','Einzelpreis','Bundle','Pro Portion','Abo','Retail'],[
+['Mouth Energy','€9,95','€17,95 (2er)','~€0,59','Keins','~10.000 Stores'],
+['BEASTED','€14,99','€39,99 (3er)','~€0,70','20% Erstbest.','D2C + Amazon'],
+['GUMING','€22,99 (20 Gums)','€19,98 (Trial 40)','~€0,50–0,58','11% Member','D2C + Amazon'],
+['BetterYou','€8–11','Varies','~€0,30','Keins','Apotheken'],
+['<strong>Yellow Kangaroo</strong>','<strong>€24,50</strong>','<strong>€45,00</strong>','TBD','TBD','Noch keins'],
+])+`</div>`+
+`<div class="grid-2 reveal" style="margin-top:18px">`+
+card(`<div style="font-weight:700;color:var(--red);font-size:13.5px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">⚠ Mouth Energy Schwachstellen</div>
+${['Synthetisches Koffein + 6 künstliche Süßstoffe','Bitterer/chemischer Geschmack (Amazon Reviews)','Kein Abo-Modell','Keine natürlichen Zutaten-Claims'].map(s=>`<div style="font-size:13px;margin-bottom:7px;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:var(--red)">✗</span>${s}</div>`).join('')}`)+
+card(`<div style="font-weight:700;color:var(--green);font-size:13.5px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">✓ Yellow Kangaroo Differenzierung</div>
+${['100% natürliche Inhaltsstoffe (Guarana, Ginseng, B-Vitamine)','Geschmack als USP gegen ME-Schwäche','Premium-Positionierung für Professionals','Abo-Modell ab Launch geplant'].map(s=>`<div style="font-size:13px;margin-bottom:7px;padding-left:18px;position:relative"><span style="position:absolute;left:0;color:var(--green)">✓</span>${s}</div>`).join('')}`)+
+`</div>`},
+
+ads(){
+const hooks=[
+{n:'01',hook:'"Kennst du das? 15 Uhr, Mittagstief, null Energie..."',type:'Problem Hook'},
+{n:'02',hook:'Post-It über dem Spray: "Was meinen 3. Kaffee ersetzt hat" — abziehen, Reveal',type:'Post-It Reveal'},
+{n:'03',hook:'"Ehrlich, ich fand ein Energy-Mundspray absurd..."',type:'Negative/Reverse'},
+{n:'04',hook:'Person im Büro ansprechen: "Müde? Probier mal das hier."',type:'Man-on-the-Street'},
+{n:'05',hook:'"Stop scrolling wenn du mehr als 2 Kaffee am Tag trinkst"',type:'Pattern Interrupt'},
+{n:'06',hook:'TikTok-Kommentar: \'Ein Energy-Spray? Quatsch\' — Creator reagiert',type:'Comment Response'},
+{n:'07',hook:'"Ich hab ausgerechnet: €87/Monat für Energy Drinks. Das hier: €1,20/Tag"',type:'Cost Compare'},
+{n:'08',hook:'"3 Sprühstöße. 10 Sekunden. Fertig." — Echtzeit-Demo',type:'Speed Demo'},
+{n:'09',hook:'"Alle fragen mich, wie ich den ganzen Tag fokussiert bleibe..."',type:'Curiosity'},
+{n:'10',hook:'"Als Ernährungsberater teste ich 200+ Supplements. Das ist anders."',type:'Expert'},
+];
+const angles=[
+{a:'Coffee Replacement',t:'Office Workers 25–45',m:'Ersetze deinen 3. Kaffee mit 3 Sprühstößen'},
+{a:'Speed & Convenience',t:'Busy Professionals',m:'Energie in 10 Sekunden — kein Mixen, keine Dose'},
+{a:'Clean Energy',t:'Health-Conscious',m:'Natürliche Inhaltsstoffe. Kein Zucker. Kein Taurin.'},
+{a:'Cost-per-Serve',t:'Value-Conscious',m:'Günstiger als dein täglicher Red Bull'},
+{a:'Portability',t:'Pendler, Gym',m:'Passt in jede Hosentasche. Wirkt in Sekunden.'},
+{a:'Afternoon Crash',t:'Office Workers',m:'Das 15-Uhr-Tief ist real. So löst man es.'},
+{a:'Pre-Workout',t:'Fitness',m:'Das Pre-Workout ohne Shaker-Bottle'},
+{a:'Social Proof',t:'Broad/FOMO',m:'50.000 Deutsche haben den Energy Drink ersetzt'},
+{a:'Innovation',t:'Early Adopters',m:'Die Zukunft der Energie ist kein Getränk — sondern ein Spray'},
+{a:'Ritual',t:'Wellness',m:'Meine Morgenroutine: 3 Sprühstöße einfacher'},
+];
+return sTitle('Ad Creative Strategie','10 bewährte Hooks + 10 Winning Angles für sofortige Creative-Produktion.')+
+`<div class="tab-bar">
+<button class="tab-btn${activeTab==='hooks'?' active':''}" onclick="activeTab='hooks';renderSection()">10 Hooks</button>
+<button class="tab-btn${activeTab==='angles'?' active':''}" onclick="activeTab='angles';renderSection()">10 Angles</button>
+<button class="tab-btn${activeTab==='formats'?' active':''}" onclick="activeTab='formats';renderSection()">Format-Mix</button>
+</div>`+
+(activeTab==='hooks'?hooks.map((h,i)=>card(`<div class="item-row"><div class="item-num">${h.n}</div><div>${badge(h.type,'badge-green')}<div style="font-size:14px;margin-top:7px;line-height:1.6">${h.hook}</div></div></div>`)).join(''):'')+
+(activeTab==='angles'?`<div class="grid-2">${angles.map(a=>card(`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px"><strong style="font-size:14.5px">${a.a}</strong>${badge(a.t,'badge-blue')}</div><div style="font-size:13.5px;color:var(--grey);font-style:italic">"${a.m}"</div>`)).join('')}</div>`:'')+
+(activeTab==='formats'?`<h3 style="margin-bottom:16px">Empfohlener Creative-Mix</h3>
+${progress('UGC Testimonial / Demo Videos',40,'var(--yellow)')}
+${progress('Single-Image Benefit Ads',25,'var(--green)')}
+${progress('Product Demo Videos (Close-Up)',20,'var(--blue)')}
+${progress('Educational Ingredient Explainer',10,'#8B5CF6')}
+${progress('Carousel Multi-Benefit Ads',5,'var(--grey)')}
+${callout('💡 AG1-Regel','Top-Performer laufen lassen. AG1-Ads laufen über ein Jahr. Teste <strong>10–20 Hook-Variationen pro Konzept</strong>, eliminiere die unteren 70%, erstelle 5 Varianten je Winner.')}`:''
+)},
+
+meta(){
+const camps=[
+{name:'Campaign 1: ASC Prospecting',pct:'60%',budget:'€3.000–6.000/Mo',obj:'Purchase',color:'var(--yellow)',desc:'Broad Targeting DE+AT+CH, 18–55. 8–10 Creative-Varianten. Advantage+ Sales.'},
+{name:'Campaign 2: Retargeting',pct:'25%',budget:'€1.250–2.500/Mo',obj:'Purchase',color:'var(--green)',desc:'Website Visitors 30–180d, Video Viewers 365d, IG/FB Engagers. Testimonials + Offers.'},
+{name:'Campaign 3: Awareness',pct:'15%',budget:'€750–1.500/Mo',obj:'ThruPlay',color:'var(--blue)',desc:'Short Reels, Educational Content. Breiteres Targeting. Retargeting-Pipeline füllen.'},
+];
+return sTitle('Meta Ads Setup','Komplette Meta Ads Kampagnenstruktur — ready to build.')+
+`<div class="grid-3 reveal">${camps.map(c=>card(`<div style="border-top:4px solid ${c.color};border-radius:var(--radius);margin:-22px -22px 16px;padding:0"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<span style="font-family:'Fraunces',serif;font-size:22px;font-weight:800">${c.pct}</span>
+${badge(c.obj,'badge-yellow')}
+</div>
+<div style="font-weight:600;font-size:14px;margin-bottom:7px">${c.name}</div>
+<div style="font-size:12.5px;color:var(--grey);line-height:1.55;margin-bottom:10px">${c.desc}</div>
+<div style="font-size:12px;font-weight:600">${c.budget}</div>`)).join('')}</div>`+
+`<div class="reveal">`+card(`<h3 style="margin-bottom:14px">Benchmark-Ziele</h3>
+<div class="metric-grid">
+${[{i:'📊',v:'>1,5%',l:'CTR'},{i:'💰',v:'€0,50–2,00',l:'CPC'},{i:'📈',v:'3× min.',l:'ROAS'},{i:'🎯',v:'<25% AOV',l:'CPA'},{i:'🎬',v:'>30%',l:'Hook Rate'},{i:'⚡',v:'€5.000/Mo',l:'Min. Budget'}].map(m=>`<div class="metric-box"><div class="icon">${m.i}</div><div class="val">${m.v}</div><div class="lbl">${m.l}</div></div>`).join('')}
+</div>`)+`</div>`},
+
+google(){return sTitle('Google Ads Setup','Search + Shopping Kampagnenstruktur mit CPC-Daten für DACH.')+
+`<div class="reveal">`+
+tbl(['Keyword-Kategorie','Est. CPC','Wettbewerb'],[
+['"Koffein Spray" / "Koffein Mundspray"','€0,80–2,50','Niedrig-Mittel'],
+['"Energie Spray" / "Energy Spray"','€1,50–3,50','Mittel'],
+['"natürlicher Energieboost"','€1,00–3,00','Mittel'],
+['"Müdigkeit bekämpfen"','€2,00–4,50','Hoch'],
+['"Alternative zu Energy Drink"','€0,60–2,00','Niedrig-Mittel'],
+['Brand Terms ("Yellow Kangaroo")','€0,10–0,30','Sehr niedrig'],
+['Shopping Ads (alle)','€0,30–0,80','Mittel'],
+],'tbl-blue')+`</div>`+
+`<div class="reveal">`+card(`<h3 style="margin-bottom:14px">Shopping Feed Optimierung</h3>
+<div style="font-size:14px;line-height:1.7">
+<strong>Titel-Struktur:</strong> [Brand] + [Produkttyp] + [Key Attribute] + [Größe]
+<div class="mono">"Yellow Kangaroo Energie Mundspray – Natürliches Koffein, 14ml, 240 Sprühstöße"</div>
+<strong>Budget-Split:</strong> ~40–50% Shopping | ~30% Search | ~20% PMax (ab 30+ Conv./Monat)<br><br>
+<strong>Wichtig:</strong> Min. 50 Reviews für Sternebewertung. Alle Claims EFSA-konform. Separate Kampagnen pro Land (DE, AT, CH).
+</div>`)+`</div>`},
+
+channels(){
+const chs=[
+{rank:'1',name:'Meta Ads (Facebook + Instagram)',timeline:'1–2 Wochen',color:'var(--yellow)',reason:'33,8 Mio. deutsche Instagram-Nutzer. Bester Algorithmus für D2C-Supplement-Conversion. Influencer-UGC als Paid Ads performt am besten.'},
+{rank:'2',name:'Google Ads (Search + Shopping)',timeline:'1–2 Wochen',color:'var(--green)',reason:'Fängt High-Intent-Käufer ab, die bereits nach Energy Sprays suchen. 70%+ der deutschen Supplement-Käufer starten online. Demand Capture.'},
+{rank:'3',name:'Amazon.de + Amazon Ads',timeline:'6–10 Wochen',color:'var(--blue)',reason:'84% der Deutschen kaufen regelmäßig auf Amazon. Reduzierte Referral Fees (5–8%). CPCs 50–75% unter US-Niveau. Erfordert USt-Registrierung + BVL.'},
+];
+return sTitle('Channel-Ranking','Top 3 Kanäle, gerankt nach Speed-to-Revenue.')+
+chs.map(c=>`<div class="card card-accent-left reveal" style="border-left-color:${c.color}">
+<div class="rank-card"><div class="rank-num" style="color:${c.color}">${c.rank}</div><div>
+<div style="font-weight:700;font-size:17px;margin-bottom:5px">${c.name}</div>
+${badge('Timeline: '+c.timeline,'badge-yellow')}
+<div style="font-size:13.5px;color:var(--grey);margin-top:8px;line-height:1.6">${c.reason}</div>
+</div></div></div>`).join('')},
+
+marketplace(){
+const mps=[
+{name:'Amazon.de',p:'P1',fee:'8% Referral + €39/Mo',time:'6–10 Wochen',reqs:'USt-Registrierung, BVL-Meldung, LUCID, Produkthaftpflicht',tip:'Amazon.at leitet zu Amazon.de weiter — keine separate Registrierung nötig.'},
+{name:'Kaufland.de',p:'P2',fee:'6,5–16% + €39,95/Mo',time:'2–4 Wochen',reqs:'EU-Sitz, USt-Nr., DE-Kundenservice, Video-Ident',tip:'32 Mio. Unique Visitors/Monat. Auch AT via Kaufland.at seit Sept. 2024.'},
+{name:'eBay.de',p:'P3',fee:'11% + €0,35/Bestellung',time:'1–2 Wochen',reqs:'Kein Supplement-Gating (einfacher als Amazon)',tip:'150 Mio. monatl. Visits in DE. Schnellster Setup für Demand-Testing.'},
+{name:'Geizhals.at',p:'P4',fee:'€0,05/Produkt/Mo + 1,5–3%',time:'1–2 Wochen',reqs:'AT Preisvergleichsplattform',tip:'Treibt Traffic zum eigenen Shop. Ideal für österreichischen Heimatmarkt.'},
+];
+return sTitle('Marktplatz-Strategie','Plattformen für schnelle Listung mit Gebühren und Timelines.')+
+mps.map(mp=>card(`<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+<div style="display:flex;align-items:center;gap:10px">${badge(mp.p,'badge-dark')}<strong style="font-size:16px">${mp.name}</strong></div>
+${badge(mp.time,'badge-green')}
+</div>
+<div class="grid-2" style="font-size:13px;gap:10px">
+<div><strong>Gebühren:</strong> ${mp.fee}</div>
+<div><strong>Anforderungen:</strong> ${mp.reqs}</div>
+</div>
+<div style="margin-top:10px;font-size:13px;color:var(--green);font-weight:500">💡 ${mp.tip}</div>`)).join('')},
+
+pricing(){return sTitle('Offer & Pricing Struktur','Bundle-Architektur, Abo-Strategie und Discount-Logik.')+
+`<div class="reveal">`+
+tbl(['Tier','Inhalt','Preis','Ersparnis','Ziel'],[
+['Single Spray','1× Spray','€24,50','—','Trial'],
+['TwinPack','2× Sprays','€45,00','8%','Aktuell'],
+['Power Pack','3× Sprays + Bonus','€65,00','12%','AOV Driver'],
+['Abo Single','1 Spray/Monat','€20,50','16%','Retention'],
+['Abo Double','2 Sprays/Monat','€38,00','16%','Best Value'],
+['Starter Kit','2× Sprays + Carry Pouch','€49,00','Bundle Value','Gift/Trial'],
+])+`</div>`+
+`<div class="grid-2 reveal" style="margin-top:18px">`+
+card(`<div style="border-top:4px solid var(--yellow);border-radius:var(--radius);margin:-22px -22px 14px;padding:0"></div>
+<h4 style="font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:10px">Erstkauf-Conversion</h4>
+${['10% Welcome Popup (Code: WILLKOMMEN10)','15% Exit-Intent für Cart Abandoners','Gratis Mini-Spray bei Erstbestellung','Gratis Express-Versand bei Erstbestellung'].map(s=>`<div style="font-size:13px;margin-bottom:7px;padding-left:18px;position:relative"><span class="arrow">→</span>${s}</div>`).join('')}`)+
+card(`<div style="border-top:4px solid var(--green);border-radius:var(--radius);margin:-22px -22px 14px;padding:0"></div>
+<h4 style="font-family:'DM Sans',sans-serif;font-size:14px;margin-bottom:10px">Abo-Retention</h4>
+${['Easy Pause/Skip/Cancel (paradox: erhöht Retention)','Cancel Save-Flow: Warum? → Tailored Alternative','Loyalty Tiers: Monate 3, 6, 12 mit Rewards','Failed Payment Recovery (30% aller Abo-Churns)'].map(s=>`<div style="font-size:13px;margin-bottom:7px;padding-left:18px;position:relative"><span class="arrow arrow-green" style="color:var(--green)">→</span>${s}</div>`).join('')}`)+
+`</div>`},
+
+shopify(){
+const steps=[
+{n:'01',t:'Benefit-Driven Headline',d:'Nicht "Willkommen bei Yellow Kangaroo" — sondern: <strong>"Natürliche Energie in Sekunden — ohne Crash, ohne Zucker."</strong> Max. 10–12 Wörter.'},
+{n:'02',t:'Social Proof sofort sichtbar',d:'★★★★★ 4,8/5 basierend auf 247 Bewertungen — direkt unter der Headline. Drei Platzierungen: Hero, Mid-Page, vor Final CTA.'},
+{n:'03',t:'Produkt in Anwendung',d:'Kein Freisteller — Lifestyle-Bild beim Sprühen. Kurzes Founder-Video (<90 Sek.) hebt CVR um 7–12%.'},
+{n:'04',t:'Kontrastierender CTA',d:'"Jetzt Energie holen" statt generisches "Kaufen". Dual-CTAs: Primär = Kaufen, Sekundär = "Mehr erfahren".'},
+{n:'05',t:'Trust Bar',d:'✓ Natürliche Inhaltsstoffe | ✓ Made in Austria | ✓ Vegan | ✓ Kostenloser Versand + Trusted Shops Badge'},
+];
+return sTitle('Shopify Optimierung','Above-the-Fold Struktur, Trust-Elemente und Conversion-Booster für DACH.')+
+steps.map(s=>card(`<div class="item-row"><div class="item-num">${s.n}</div><div><strong style="font-size:14.5px">${s.t}</strong><div style="font-size:13px;color:var(--grey);margin-top:6px;line-height:1.6">${s.d}</div></div></div>`)).join('')+
+callout('🏆 #1 Trust-Investment: Trusted Shops','80% Bekanntheit in DE. <strong>+30–65% Umsatzsteigerung</strong> für unbekanntere Shops. €49–249/Monat. Google-Partner für Review-Sterne. Ein Zertifikat deckt DE+AT+CH ab. Klarna "Kauf auf Rechnung" als zweites Must-Have.')+
+`<div class="reveal" style="margin-top:20px">`+
+tbl(['Phase','Erwartete CVR','Hinweise'],[
+['Launch (Mo 1–3)','0,8–1,5%','Neue Marke, keine Reviews, limitiertes Trust'],
+['Growth (Mo 3–6)','1,5–2,5%','Mit Trusted Shops, Reviews, optimierten Seiten'],
+['Optimiert (Mo 6–12)','2,5–3,5%','Voller Trust-Stack, Retargeting, Bestandskunden'],
+['Matur (12+ Mo)','3,0–4,5%','Starke Marke, UGC, Subscriptions, Email'],
+])+`</div>`},
+
+communities(){
+const cs=[
+{name:'r/Nootropics',size:'1,2M+',lang:'EN',desc:'Zentral für kognitive Optimierung & Koffein-Alternativen'},
+{name:'r/Biohackers',size:'350K+',lang:'EN',desc:'Supplement-Stacks und neue Delivery-Formate'},
+{name:'r/Supplements',size:'500K+',lang:'EN',desc:'Produktbewertungen und Marken-Diskussionen'},
+{name:'r/Austria',size:'600K+',lang:'DE',desc:'Lokale Brand-Story Opportunity'},
+{name:'r/de',size:'900K+',lang:'DE',desc:'Generelle DE-Reichweite, Startup-Stories'},
+{name:'Flowgrade.de',size:'Premium',lang:'DE',desc:'DEs #1 Biohacking-Plattform. Affiliate/Retail-Partner.'},
+{name:'Primal State',size:'Groß',lang:'DE',desc:'Energie & Supplements für Deutsche Zielgruppe'},
+{name:'Biohackers Berlin',size:'Events',lang:'DE',desc:'In-Person Sampling & Demos'},
+{name:'FB: Biohacking DE',size:'5K–50K+',lang:'DE',desc:'Giveaways und Produkt-Reviews mit Admins'},
+{name:'FB: Supplements DE',size:'5K–50K+',lang:'DE',desc:'NEM-Diskussionen, Markenbewertungen'},
+];
+return sTitle('Community-Strategie','10 Communities für organischen Zugang zur Zielgruppe.')+
+`<div class="grid-2">${cs.map(c=>card(`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;flex-wrap:wrap;gap:6px">
+<strong style="font-size:14px">${c.name}</strong>
+<div style="display:flex;gap:5px">${badge(c.size,'badge-grey')}${badge(c.lang,c.lang==='DE'?'badge-green':'badge-blue')}</div>
+</div><div style="font-size:12.5px;color:var(--grey)">${c.desc}</div>`,'')).join('')}</div>`},
+
+lowbudget(){
+const tactics=[
+{t:'Micro-Influencer Seeding',w:'Instagram, TikTok',imp:'30–90 UGC-Pieces aus 50–100 Seeds',e:'Mittel'},
+{t:'Founder LinkedIn Content',w:'LinkedIn',imp:'Organische Reichweite B2B + Presse',e:'Niedrig'},
+{t:'Referral-Programm',w:'Shopify (ReferralCandy)',imp:'Günstigster Akquise-Kanal überhaupt',e:'Niedrig'},
+{t:'Co-Working Space Sampling',w:'Wien, München, Berlin',imp:'Direktes Feedback + Conversions',e:'Mittel'},
+{t:'PR Pitch AT-Startupmedien',w:'brutkasten, Trending Topics',imp:'Kostenlose Awareness',e:'Niedrig'},
+{t:'SEO Blog-Artikel (DE)',w:'yellow-kangaroo.at/blog',imp:'Long-Tail Traffic ab Monat 3–4',e:'Niedrig'},
+{t:'UGC Rights → Paid Ads',w:'Meta, TikTok',imp:'+30–50% bessere Ad-Performance',e:'Niedrig'},
+{t:'Amazon Vine / Early Reviewer',w:'Amazon.de',imp:'Erste 30 Reviews schnell aufbauen',e:'Mittel'},
+{t:'Uni-Campus Guerilla',w:'Wien, Graz, München',imp:'Gen-Z Trial + Social Content',e:'Mittel'},
+{t:'Affiliate-Programm (15%)',w:'Fitness/Wellness Blogger',imp:'Performance-basiert, kein Risiko',e:'Niedrig'},
+];
+return sTitle('Low-Budget Growth Playbook','10 Taktiken für maximalen Impact bei minimalem Budget.')+
+card(`<h3 style="margin-bottom:14px">Budget-Allocation bei €7.500/Monat</h3>
+${progress('Paid Social Testing (€2.500)',33,'var(--yellow)')}
+${progress('Influencer Seeding (€1.500)',20,'var(--green)')}
+${progress('Content Creation (€1.000)',13,'var(--blue)')}
+${progress('Events & Sampling (€750)',10,'#8B5CF6')}
+${progress('Email/SMS Tools (€500)',7,'#F59E0B')}
+${progress('SEO Content (€500)',7,'#EC4899')}
+${progress('PR Outreach (€500)',7,'#06B6D4')}
+${progress('Testing/Sonstiges (€250)',3,'var(--grey)')}`)+
+tactics.map(t=>card(`<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:flex-start">
+<div style="flex:1 1 200px">
+<strong style="font-size:14px">${t.t}</strong>
+<div style="font-size:12.5px;color:var(--grey);margin-top:3px">${t.imp}</div>
+</div>
+<div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">
+${badge(t.w,'badge-blue')}
+${badge(t.e,t.e==='Niedrig'?'badge-green':'badge-amber')}
+</div></div>`)).join('')},
+
+timeline(){
+const months=[
+{title:'Monat 1: Foundation',color:'var(--yellow)',items:['Shopify-Store finalisieren + Abo (Recharge/Loop)','Trusted Shops + Klarna implementieren','10% Welcome Popup + Referral-Programm live','30 Micro-Influencer seeden','4 deutsche SEO-Artikel publizieren','5 österreichische Medien pitchen','Founder LinkedIn Content starten','BVL-Meldung + USt-Registrierung starten']},
+{title:'Monat 2: Traction',color:'var(--green)',items:['UGC von Influencern sammeln + repurposen','Meta + TikTok Paid Ads launch (€2.500 Test)','Google Search + Shopping Ads starten','30 weitere Influencer seeden','Pop-Up Sampling in Wiener Co-Working Spaces','Email Welcome Sequence live','eBay.de Listing erstellen','Kaufland.de Registrierung abschließen']},
+{title:'Monat 3: Scale What Works',color:'var(--blue)',items:['Winning Ad Creatives verdoppeln','Top-Influencer → Affiliate konvertieren','Abo-Retention-Mechaniken implementieren','PR Push an deutsche Medien (OMR, t3n)','Amazon.de Listing live + Amazon Ads starten','Google PMax testen (wenn 30+ Conv./Mo)','Performance Review: CPA, ROAS, AOV','Monat 4+ Roadmap auf Basis der Daten']},
+];
+return sTitle('90-Tage Execution Plan','Von Foundation über Traction zu Scale — die ersten 90 Tage.')+
+months.map(m=>`<div class="card reveal" style="border-left:4px solid ${m.color};padding:22px 24px;margin-bottom:18px">
+<h3 style="font-size:20px;margin-bottom:14px">${m.title}</h3>
+<div class="grid-2" style="gap:6px">
+${m.items.map(item=>`<div style="font-size:13px;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--grey-light)"><span style="position:absolute;left:0;color:${m.color};font-weight:700">→</span>${item}</div>`).join('')}
+</div></div>`).join('')},
+
+priorities(){
+const ps=[
+{a:'Trusted Shops Zertifizierung abschließen',e:'Niedrig',s:'Sofort',i:'+30–65% CVR'},
+{a:'10% Welcome Popup + Email Capture live',e:'Niedrig',s:'Tag 1',i:'List-Building'},
+{a:'Abo-Modell einrichten (€20,50/Mo)',e:'Mittel',s:'Woche 1',i:'Recurring Revenue'},
+{a:'Klarna Kauf auf Rechnung aktivieren',e:'Niedrig',s:'Woche 1',i:'Trust + CVR +15%'},
+{a:'Google Search Ads starten (10 Money KWs)',e:'Mittel',s:'Woche 1–2',i:'Intent Capture'},
+{a:'30 Micro-Influencer seeden (TwinPacks)',e:'Mittel',s:'Woche 1–2',i:'30–90 UGC Pieces'},
+{a:'Meta ASC Prospecting Kampagne launchen',e:'Mittel',s:'Woche 2',i:'Scaling Engine'},
+{a:'Referral-Programm implementieren',e:'Niedrig',s:'Woche 2',i:'Günstigster CAC'},
+{a:'eBay.de Listing erstellen',e:'Niedrig',s:'Woche 2',i:'Sofort-Sales'},
+{a:'Above-the-Fold nach Playbook optimieren',e:'Mittel',s:'Woche 2',i:'CVR Verdopplung'},
+{a:'Google Shopping Feed live',e:'Mittel',s:'Woche 2–3',i:'Visual Search'},
+{a:'Founder LinkedIn Content starten',e:'Niedrig',s:'Woche 1',i:'Free B2B Reach'},
+{a:'Amazon.de Registrierung + BVL starten',e:'Hoch',s:'Woche 1 (6–10 Wo.)',i:'Größter Marktplatz'},
+{a:'Kaufland.de Registrierung',e:'Mittel',s:'Woche 2 (2–4 Wo.)',i:'32M Visitors/Mo'},
+{a:'4 SEO-Artikel publizieren (DE)',e:'Niedrig',s:'Woche 3–4',i:'Long-Tail Traffic'},
+];
+return sTitle('TOP 15 Priority Actions','Sortiert nach schnellstem Revenue-Impact × geringstem Aufwand.')+
+ps.map((p,i)=>card(`<div class="priority-row">
+<div class="priority-num" style="color:${i<3?'var(--yellow)':i<7?'var(--dark)':'var(--grey)'}">${i+1}</div>
+<div style="flex:1">
+<div style="font-weight:600;font-size:14px">${p.a}</div>
+<div class="priority-badges">
+${badge('Effort: '+p.e,p.e==='Niedrig'?'badge-green':p.e==='Mittel'?'badge-amber':'badge-red')}
+${badge(p.s,'badge-blue')}
+${badge(p.i,'badge-grey')}
+</div></div></div>`)).join('')},
+
+};
+
+// ─── SCROLL REVEAL ───
+function observeReveals(){
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=`${i*0.06}s`;
+    const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){el.classList.add('visible');obs.disconnect()}},{threshold:0.08});
+    obs.observe(el);
+  });
+}
+
+// ─── INIT ───
+buildNav();
+renderSection();
+</script>
+</body>
+</html>
