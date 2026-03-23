@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+<head><script>
+(function(){
+  var PW='5ports3dition*!';
+  var KEY='_auth_yk_strategie_23032026';
+  if(localStorage.getItem(KEY)===PW)return;
+  document.documentElement.style.display='none';
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:#17130f;display:flex;align-items:center;justify-content:center;z-index:99999;font-family:sans-serif';
+  ov.innerHTML='<div style="background:#fff;padding:40px;border-radius:12px;text-align:center;max-width:320px;width:90%">'
+    +'<div style="font-size:1.5rem;font-weight:700;margin-bottom:8px">🔒 Zugang</div>'
+    +'<div style="color:#666;font-size:.9rem;margin-bottom:20px">Bitte Passwort eingeben</div>'
+    +'<input id="_pw_in" type="password" placeholder="Passwort" style="width:100%;padding:10px 14px;border:2px solid #e5e7eb;border-radius:8px;font-size:1rem;outline:none;box-sizing:border-box">'
+    +'<div id="_pw_err" style="color:#dc2626;font-size:.8rem;margin-top:8px;min-height:16px"></div>'
+    +'<button id="_pw_btn" style="margin-top:12px;width:100%;padding:11px;background:#17130f;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer">Weiter</button>'
+    +'</div>';
+  function check(){
+    var v=document.getElementById('_pw_in').value;
+    if(v===PW){localStorage.setItem(KEY,PW);document.body.removeChild(ov);document.documentElement.style.display='';}
+    else{document.getElementById('_pw_err').textContent='Falsches Passwort';}
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    document.body.appendChild(ov);
+    document.documentElement.style.display='';
+    document.getElementById('_pw_btn').addEventListener('click',check);
+    document.getElementById('_pw_in').addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+    document.getElementById('_pw_in').focus();
+  });
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yellow Kangaroo — DACH Launch Playbook</title>
